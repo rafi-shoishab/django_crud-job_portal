@@ -5,3 +5,6 @@ from .models import Job
 
 def home(request):
     return render(request, 'Jobs/index.html') 
+
+def add_job(request):
+    return render(request, 'Jobs/add_job.html')
