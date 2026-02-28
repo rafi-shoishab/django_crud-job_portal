@@ -1,63 +1,42 @@
 {% extends 'base.html' %}
 
 {% block title %}
-Home - Job Portal
-{% endblock %} 
+  Home - Job Portal
+{% endblock %}
 
 {% block content %}
-    <h1>Job Home</h1>
+  <h1>Job Home</h1>
 
-    <!DOCTYPE html>
-<html lang="en">
-
-<body class="bg-gray-100 text-gray-800">
-
-<!-- Hero Section -->
-<section class="bg-blue-600 text-white py-20">
+  <!-- Hero Section -->
+  <section class="bg-blue-600 text-white py-20">
     <div class="max-w-7xl mx-auto px-6 text-center">
-        <h2 class="text-4xl font-bold mb-4">Find Your Dream Job</h2>
-        <p class="text-lg mb-8">
-            Browse thousands of jobs from top companies and apply easily
-        </p>
-        <a href="#" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100">
-            Browse Jobs
-        </a>
-        <a href="{% url 'add_job' %}" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 ml-4">
-            Add Job 
-        </a>
+      <h2 class="text-4xl font-bold mb-4">Find Your Dream Job</h2>
+      <p class="text-lg mb-8">Browse thousands of jobs from top companies and apply easily</p>
+      <a href="{% url 'browse_job' %}" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100">Browse Jobs</a>
+      <a href="{% url 'add_job' %}" class="bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 ml-4">Add Job</a>
     </div>
-</section>
+  </section>
 
-<!-- Featured Jobs -->
-<section class="py-16">
+  {% comment %} <!-- Featured Jobs -->
+  <section class="py-16">
     <div class="max-w-7xl mx-auto px-6">
-        <h3 class="text-3xl font-bold text-center mb-10">Featured Jobs</h3>
+      <h3 class="text-3xl font-bold text-center mb-10">Featured Jobs</h3>
 
-        <div class="grid md:grid-cols-3 gap-8">
-            <!-- Job Card -->
-            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-                <h4 class="text-xl font-semibold mb-2">Frontend Developer</h4>
-                <p class="text-gray-600 mb-2">Company: Tech Soft</p>
-                <p class="text-gray-600 mb-4">Location: Dhaka</p>
-                <a href="#" class="text-blue-600 font-medium hover:underline">View Details</a>
-            </div>
+      <div class="grid md:grid-cols-3 gap-8">
+        {% for job in jobs %}
+          <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
+            <h4 class="text-xl font-semibold mb-2">{{ job.job_title }}</h4>
 
-            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-                <h4 class="text-xl font-semibold mb-2">Backend Developer</h4>
-                <p class="text-gray-600 mb-2">Company: Code Lab</p>
-                <p class="text-gray-600 mb-4">Location: Remote</p>
-                <a href="#" class="text-blue-600 font-medium hover:underline">View Details</a>
-            </div>
+            <p class="text-gray-600 mb-2">Company: {{ job.company_name }}</p>
 
-            <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition">
-                <h4 class="text-xl font-semibold mb-2">UI/UX Designer</h4>
-                <p class="text-gray-600 mb-2">Company: Design Hub</p>
-                <p class="text-gray-600 mb-4">Location: Chittagong</p>
-                <a href="#" class="text-blue-600 font-medium hover:underline">View Details</a>
-            </div>
-        </div>
+            <p class="text-gray-600 mb-4">Location: {{ job.job_location }}</p>
+
+            <a href="{% url 'job_detail' job.id %}" class="text-blue-600 font-medium hover:underline">View Details</a>
+          </div>
+        {% empty %}
+          <p class="text-center text-gray-500 col-span-3">No jobs available right now.</p>
+        {% endfor %}
+      </div>
     </div>
-</section>
-
-
+  </section> {% endcomment %}
 {% endblock %}
