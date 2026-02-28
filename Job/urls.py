@@ -6,4 +6,7 @@ urlpatterns = [
     path('add_job/', views.add_job, name='add_job'),
     path('all_job/', views.all_job, name='all_job'),
     path('browse_job/', views.browse_job, name='browse_job'),
+    path('single_job_view/', views.single_job_view, name='single_job_view'),
+    path('edit_job/', views.edit_job, name='edit_job'),
+    path('about_us/', views.about_us, name='about_us'),
 ]

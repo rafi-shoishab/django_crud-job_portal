@@ -21,3 +21,15 @@ def all_job(request):
 def browse_job(request):
     
     return render(request, 'Jobs/browse_job.html')
+
+def single_job_view(request):
+    
+    return render(request, 'Jobs/single_job_view.html')
+
+def edit_job(request):
+    
+    return render(request, 'Jobs/edit_job.html')
+
+def about_us(request):
+    
+    return render(request, 'Jobs/about_us.html')
