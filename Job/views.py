@@ -57,8 +57,13 @@ def all_job(request):
 def browse_job(request):
     
     all_jobs = Job.objects.all()
+    
+    
+    context_dict = {
+        'jobs' : all_jobs
+    }
 
-    return render(request, 'Jobs/single_job_view.html')
+    return render(request, 'Jobs/browse_job.html', context_dict)
 
 def single_job_view(request, job_id):
     job_data = get_object_or_404(Job, id=job_id)
