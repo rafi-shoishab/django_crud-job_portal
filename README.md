@@ -30,37 +30,37 @@ django-crud-job_portal/
 
 ## ⚡ 1. Setup Django (Run Project)
 Clone Repository
-``
+```
 git clone https://github.com/rafi-shoishab/django-crud-job_portal.git
 cd django-crud-job_portal
-``
+```
 Create Virtual Environment
 Mac / Linux
-``
+```
 python3 -m venv .venv
 source .venv/bin/activate
-``
+```
 Windows
-``
+```
 python -m venv .venv
 .venv\Scripts\activate
-``
+```
 Install Dependencies
-``
+```
 pip install -r requirements.txt
-``
+```
 Apply Migrations
-``
+```
 python manage.py migrate
-``
+```
 Run Development Server
-``
+```
 python manage.py runserver
-``
+```
 Open Browser
-``
+```
 http://127.0.0.1:8000
-``
+```
 
 ## 🧩 2. Creating Job Model
 
@@ -126,6 +126,7 @@ urlpatterns = [
 
 📄 job_portal/views.py
 
+### all_job 
 ```
 from django.shortcuts import render, redirect
 from .models import Job
@@ -133,7 +134,9 @@ from .models import Job
 def job_list(request):
     jobs = Job.objects.all()
     return render(request, 'job_list.html', {'jobs': jobs})
-
+```
+### add_job
+```
 def job_create(request):
     if request.method == "POST":
         title = request.POST.get('title')
@@ -153,8 +156,9 @@ def job_create(request):
         return redirect('job_list')
 
     return render(request, 'job_create.html')
-
-
+```
+### edit job
+```
 def job_update(request, id):
     job = Job.objects.get(id=id)
 
@@ -169,14 +173,14 @@ def job_update(request, id):
         return redirect('job_list')
 
     return render(request, 'job_update.html', {'job': job})
-
-
+```
+### delete job 
+```
 def job_delete(request, id):
     job = Job.objects.get(id=id)
     job.delete()
-    return redirect('job_list')
+    return redirect('job_list') 
 ```
-
 ## 🎨 6. Template Example
 
 📄 templates/job_list.html
