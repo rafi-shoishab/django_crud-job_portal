@@ -7,7 +7,7 @@ from django.db.models import Q # for query
 
 def home(request):
     
-    return render(request, 'Jobs/index.html') 
+    return render(request, 'Jobs/index.html') # template file name
 
 def add_job(request):
     
@@ -47,7 +47,7 @@ def add_job(request):
 
 def all_job(request):
 
-    sort = request.GET.get('sort')
+    sort = request.GET.get('sort') # 
 
     if sort == 'asc':
         all_jobs = Job.objects.filter().order_by('job_title')
@@ -88,7 +88,7 @@ def single_job_view(request, job_id):
     job_data = get_object_or_404(Job, id=job_id)
     
     context_dict = {
-        'job' : job_data
+        'job' : job_data 
     }
     
     return render(request, 'Jobs/single_job_view.html', context_dict)
