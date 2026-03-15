@@ -12,10 +12,25 @@
 
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
 
-  <body class="bg-gray-100 text-gray-800">
+  <body class="bg-gray-100">
+    <!-- ===== NAVBAR ===== -->
     {% include 'includes/header.html' %}
+
+    {% if messages %}
+      {% for message in messages %}
+        <script>
+          Swal.fire({
+            icon: '{{ message.tags }}',
+            title: '{{ message }}',
+            timer: 2000,
+            showConfirmButton: false
+          })
+        </script>
+      {% endfor %}
+    {% endif %}
 
     {% block content %}
 

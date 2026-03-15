@@ -1,14 +1,12 @@
 from django.shortcuts import get_object_or_404, render, redirect # db access
 from django.contrib import messages # for message sweet alert
-from .models import Job # model class 
+from .models import Job # model 
 from django.db.models import Q # for query 
-
+from django.contrib.auth.decorators import login_required #
+from accounts.models import RecruiterProfile #
 # Create your views here.
 
-def home(request):
-    
-    return render(request, 'Jobs/index.html') # template file name
-
+@login_required
 def add_job(request):
     
     if request.method == "POST":
@@ -43,56 +41,9 @@ def add_job(request):
         return redirect(all_job)
 
 
-    return render(request, 'Jobs/add_job.html')
+    return render(request, 'Job/add_job.html')
 
-def all_job(request):
-
-    sort = request.GET.get('sort') # 
-
-    if sort == 'asc':
-        all_jobs = Job.objects.filter().order_by('job_title')
-    
-    elif sort =='desc':
-        all_jobs = Job.objects.filter().order_by('-job_title')
-
-    else:
-        all_jobs = Job.objects.all()
-    
-    context_dict = {
-        'jobs': all_jobs # dict = { 'key' : variable}
-    }
-    
-    return render(request, 'Jobs/all_job.html', context_dict) 
-
-def browse_job(request):
-
-    query = request.GET.get('q')
-
-    if query:
-        all_jobs = Job.objects.filter( 
-            Q(job_title__icontains = query) |
-            Q(company_name__icontains = query)
-        )
-
-    else:
-        all_jobs = Job.objects.all()
-    
-    context_dict = {
-        'jobs' : all_jobs,
-        'query' : query
-    }
-
-    return render(request, 'Jobs/browse_job.html', context_dict)
-
-def single_job_view(request, job_id):
-    job_data = get_object_or_404(Job, id=job_id)
-    
-    context_dict = {
-        'job' : job_data 
-    }
-    
-    return render(request, 'Jobs/single_job_view.html', context_dict)
-
+@login_required
 def edit_job(request, job_id): 
     job_data = get_object_or_404(Job, id=job_id)
     
@@ -117,9 +68,9 @@ def edit_job(request, job_id):
         'job' : job_data 
     }
     
-    return render(request, 'Jobs/edit_job.html', context)
+    return render(request, 'Job/edit_job.html', context)
 
-
+@login_required
 def delete_job(request, job_id):
 
     job = Job.objects.filter(id=job_id)
@@ -128,4 +79,34 @@ def delete_job(request, job_id):
 
 def about_us(request):
     
-    return render(request, 'Jobs/about_us.html')
+    return render(request, 'Job/about_us.html')
+
+def browse_job(request):
+
+    query = request.GET.get('q')
+
+    if query:
+        all_jobs = Job.objects.filter( 
+            Q(job_title__icontains = query) |
+            Q(company_name__icontains = query)
+        )
+
+    else:
+        all_jobs = Job.objects.all()
+    
+    context_dict = {
+        'jobs' : all_jobs,
+        'query' : query
+    }
+
+    return render(request, 'Job/browse_job.html', context_dict)
+
+
+def single_job_view(request, job_id):
+    job_data = get_object_or_404(Job, id=job_id)
+    
+    context_dict = {
+        'job' : job_data 
+    }
+    
+    return render(request, 'Job/single_job_view.html', context_dict)
