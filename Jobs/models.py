@@ -1,5 +1,4 @@
 from django.db import models 
-from accounts.models import RecruiterProfile 
 
 # Create your models here.
 class Job(models.Model):

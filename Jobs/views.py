@@ -38,14 +38,14 @@ def add_job(request):
         
         messages.success(request, 'Job added succesfully!')
         
-        return redirect(all_job)
+        return redirect('all_job')
 
 
-    return render(request, 'Job/add_job.html')
+    return render(request, 'Jobs/add_job.html')
 
 @login_required
 def edit_job(request, job_id): 
-    job_data = get_object_or_404(Job, id=job_id)
+    job_data = get_object_or_404(Job, id=job_id) #
     
     if request.method == 'POST':
         job_data.job_title = request.POST.get('title')
@@ -99,7 +99,7 @@ def browse_job(request):
         'query' : query
     }
 
-    return render(request, 'Job/browse_job.html', context_dict)
+    return render(request, 'Jobs/browse_job.html', context_dict)
 
 
 def single_job_view(request, job_id):
@@ -109,4 +109,4 @@ def single_job_view(request, job_id):
         'job' : job_data 
     }
     
-    return render(request, 'Job/single_job_view.html', context_dict)
+    return render(request, 'Jobs/single_job_view.html', context_dict)

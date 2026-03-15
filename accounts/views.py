@@ -11,7 +11,9 @@ from django.contrib.auth import authenticate, login, logout
 #
 from django.contrib import messages 
 #
-from Job.models import Job 
+from Jobs.models import Job
+#
+from django.contrib.auth.decorators import login_required
 #
 
 
@@ -95,7 +97,7 @@ def log_in(request):
     
     return render(request, 'accounts/login.html')
 
-
+@login_required
 def profile(request):
     
     sort = request.GET.get('sort') # 
@@ -115,7 +117,7 @@ def profile(request):
     
     return render(request, 'accounts/profile.html', context_dict)
 
-
+@login_required
 def log_out(request):
     
     logout(request)
